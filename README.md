@@ -1,77 +1,63 @@
-**Carbon Capture in Steam Methane Reforming — LCA Study**
+# Carbon capture in steam methane reforming – process simulation and LCA
 
-A gate-to-gate Life Cycle Assessment (LCA) of CO₂ capture integrated with Steam Methane Reforming (SMR), submitted for the Sustainability Assessment course at Otto-von-Guericke University Magdeburg (Summer Semester 2026).
+Gate-to-gate life cycle assessment of CO₂ capture and compression in a steam methane reforming (SMR) hydrogen plant. Team project (4 students, "Team Gen Alpha") for the course Sustainability Assessment (LCA), Faculty of Process and Systems Engineering, Otto von Guericke University Magdeburg, summer semester 2026. Supervisor: Prof. Dr. Liisa Rihko-Struckmann.
 
-## Overleaf Project
+Report: `LCA_Sprint3_Final.pdf` · LaTeX source: `LCA_Sprint3_Final.tex` · [Overleaf (read-only)](https://www.overleaf.com/read/dgffffrgnmvg#042823)
 
-View and edit the LaTeX report on Overleaf: [Open in Overleaf](https://www.overleaf.com/read/dgffffrgnmvg#042823)
+## What we modelled
 
-**Overview****
+SMR is the main industrial route to hydrogen and a large CO₂ source. We asked what material and energy it takes to capture and compress 1 kg of CO₂ from an SMR plant.
 
-Steam Methane Reforming is the dominant industrial route for hydrogen production but generates significant CO₂ emissions. This study quantifies the material and energy inputs required to capture 1 kg of CO₂ from an SMR-based hydrogen plant, modelled end-to-end in DWSIM and assessed in OpenLCA.
+The DWSIM flowsheet (Peng-Robinson equation of state) has three sections:
 
-The system comprises three stages:
+1. **Reformer:** CH₄ + H₂O ⇌ CO + 3H₂
+2. **Water-gas shift reactor:** CO + H₂O ⇌ CO₂ + H₂
+3. **CO₂ separation and compression:** PSA unit for hydrogen, gas-liquid and compound separators for the CO₂-rich off-gas, then three compressor stages with intercooling to 110 bar (supercritical)
 
+Feed: 10 kg/h methane, 30 kg/h steam. Products: 2.11 kg/h hydrogen at 200 bar, 10.2 kg/h CO₂-rich stream (94.7 mol % CO₂) at 110 bar.
 
-SMR Reactor — CH₄ + H₂O → CO + 3H₂ (endothermic, catalytic)
-Water-Gas Shift (WGS) Reactor — CO + H₂O → CO₂ + H₂
-CO₂ Separation & Compression — PSA unit, compound separator, three-stage compression train to supercritical conditions (110 bar)
+The inventory was then modelled in OpenLCA following ISO 14040/14044, with a functional unit of **1 kg of captured CO₂**.
 
+## Results
 
+| Metric | Value |
+|---|---|
+| CO₂ recovery from the PSA off-gas | 88 % (10.0 of 11.4 kg/h CO₂) |
+| Methane per kg CO₂ captured | 0.979 kg |
+| Steam per kg CO₂ captured | 2.94 kg |
+| Compressor power, stages 1 / 2 / 3 | 0.19 / 0.16 / 0.04 kW (0.39 kW total) |
+| Compression energy per kg CO₂, stages 1 / 2 / 3 | 0.067 / 0.057 / 0.015 MJ (≈ 0.14 MJ total) |
+| Intercooler heat removed | 1.13 kW (0.40 MJ/kg CO₂) |
+| Largest steel use | Cooler 8, 1.5 × 10⁻⁴ kg per kg CO₂ |
 
-**Key Results**
+- Most compression work is done in the first two stages; the last stage adds the least.
+- The intercoolers remove about three times as much heat as the compressors use in electricity, so cooling is the largest energy flow in the capture section.
+- The 12 % of CO₂ that isn't recovered leaves with the fuel gas to the reformer furnace, so it is emitted, not captured.
 
-MetricValueFunctional unit1 kg captured CO₂CO₂ capture efficiency88.0%Total compression energy1.132 kWMethane input per kg CO₂0.979 kgSteam input per kg CO₂2.937 kgDominant energy consumerCompressor 6 — Stage 3 (1.532 MJ/kg CO₂)Dominant material consumerCooler 8 steel (1.50 × 10⁻⁴ kg/kg CO₂)
+## System boundary
 
-The final compression stage accounts for the majority of energy demand, owing to the high pressure ratio required to reach supercritical CO₂ conditions. The remaining 12% of CO₂ is recycled to the reformer furnace as fuel gas, keeping atmospheric emissions near zero.
+Gate-to-gate: from natural gas inlet to compressed CO₂ ready for transport.
 
+- **Included:** methane and steam inputs, CO₂ separation and compression, steel in the capture equipment, compressor electricity
+- **Excluded:** natural gas extraction and pipeline transport, plant construction and decommissioning, CO₂ transport and storage, use of the hydrogen
 
-**System Boundary**
+Air Liquide's CRYOCAP™ H₂ unit at Port-Jérôme (France) served as the industrial reference for capturing CO₂ from SMR off-gas; it uses cryogenic separation, which we did not model.
 
-This is a gate-to-gate analysis. The boundary starts at the natural gas inlet and ends at the compressed CO₂ product stream ready for transport.
+## Tools
 
-Included:
+| Tool | Used for |
+|---|---|
+| DWSIM | Process simulation (Peng-Robinson) |
+| OpenLCA | Life cycle inventory and impact assessment |
+| ISO 14040/14044 | LCA method |
+| LaTeX / Overleaf | Report |
 
+## Key references
 
-Material and energy flows for CH₄ and H₂O inputs
-CO₂ separation and multi-stage compression
-Steel consumption of capture unit equipment
-Electricity demand of compressors
+- Spath, P. L. & Mann, M. K. (2001). *Life Cycle Assessment of Hydrogen Production via Natural Gas Steam Reforming.* NREL.
+- Dufour, J. et al. (2009). Life cycle assessment of hydrogen production by steam reforming. *Int. J. Hydrogen Energy*, 34(3), 1370–1376.
+- IEAGHG (2017). *Techno-economic evaluation of SMR-based hydrogen plant with CCS.* Report 2017/02.
+- Antonini, C. et al. (2020). Hydrogen production from natural gas and biomethane with carbon capture and storage – a techno-environmental analysis. *Sustainable Energy & Fuels*, 4(6), 2967–2986.
+- ISO 14040:2006. *Environmental management – Life cycle assessment – Principles and framework.*
 
-
-Excluded:
-
-
-Upstream natural gas extraction and pipeline transport
-Plant construction and decommissioning
-CO₂ transport, injection, and storage
-End-use of co-produced hydrogen
-
-
-
-**Tools & Methods**
-
-ToolPurposeDWSIMProcess simulation (Peng-Robinson EOS)OpenLCALife cycle inventory modelling and impact assessmentISO 14040/14044LCA framework and methodology
-
-The flowsheet mirrors Air Liquide's CRYOCAP™ H₂ technology (Port-Jérôme, France), which has been in commercial operation since 2015 at 100,000 t/yr CO₂ and >97% capture rate (TRL 9).
-
-**References**
-
-Key references underpinning this work:
-
-
-Spath & Mann (2001). Life Cycle Assessment of Hydrogen Production via Natural Gas Steam Reforming. NREL.
-Dufour et al. (2009). Life cycle assessment of hydrogen production by steam reforming. Int. J. Hydrogen Energy, 34(3), 1370–1376.
-IEAGHG (2017). Techno-economic evaluation of SMR-based hydrogen plant with CCS. Report 2017/02.
-Antonini et al. (2020). Hydrogen production from natural gas with CCS — a techno-environmental analysis. Sustainable Energy & Fuels, 4(6), 2967–2986.
-ISO 14040:2006. Environmental Management – Life Cycle Assessment – Principles and Framework.
-
-
-Full reference list in report/LCA_Sprint_3_Final.pdf.
-
-
-**Course**
-
-Sustainability Assessment (LCA) — Faculty of System and Process Engineering, M.Sc. Chemical and Energy Engineering
-Supervisor: Prof. Dr. Lissa Rikho-Struckmann · Otto-von-Guericke University Magdeburg
-
+Full list in the report.
