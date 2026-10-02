@@ -2,6 +2,8 @@
 
 Gate-to-gate life cycle assessment of CO₂ capture and compression in a steam methane reforming (SMR) hydrogen plant. Team project (4 students, "Team Gen Alpha") for the course Sustainability Assessment (LCA), Faculty of Process and Systems Engineering, Otto von Guericke University Magdeburg, summer semester 2026. Supervisor: Prof. Dr. Liisa Rihko-Struckmann.
 
+**My role:** team lead. I worked on the OpenLCA life cycle model (ISO 14040/14044, functional unit 1 kg of captured CO₂) and worked through simulation problems with the teammate who built the DWSIM flowsheet.
+
 Report: `LCA Sprint 3 Final .pdf` · LaTeX source: `LCA_Sprint3_Final.tex` · [Overleaf (read-only)](https://www.overleaf.com/read/dgffffrgnmvg#042823)
 
 ## What we modelled
